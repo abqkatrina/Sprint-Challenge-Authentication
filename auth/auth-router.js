@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
-const Users = require('');
+const Users = require('./auth-model');
 
 router.post('/register', (req, res) => {
     let user = req.body; 
