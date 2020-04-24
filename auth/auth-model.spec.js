@@ -1,3 +1,4 @@
+
 const db = require('../database/dbConfig');
 const auth = require('./auth-model');
 
