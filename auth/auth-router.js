@@ -1,7 +1,9 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const Users = require('./auth-model');
+const protected = require('./authenticate-middleware');
 
+//works
 router.get('/', (req, res) => {
   Users.get()
   .then(users => {
@@ -13,6 +15,20 @@ router.get('/', (req, res) => {
   });
 })
 
+//not working
+router.get('/users/:id', (req, res) => {
+  let id = req.params
+  Users.findBy(id)
+  .then(user => {
+    res.status(200).json(user.username);
+  })
+  .catch(error => {
+    console.log(error);
+    res.status(500).json({ errorMessage: error.message });
+  });
+})
+
+//works
 router.post('/register', (req, res) => {
     let user = req.body; 
     const rounds = process.env.HASH_ROUNDS || 12;
@@ -28,17 +44,19 @@ router.post('/register', (req, res) => {
       });
   });
 
+  //not working
 router.post('/login', (req, res) => {
     let { username, password } = req.body;
     Users.findBy({ username })
       .first()
-      .then(([user]) => {
+      .then((user) => {
         if (user && bcrypt.compareSync(password, user.password)) {
           req.session.loggedIn = true;
           res.status(200).json({ message: "Logged In!" });
-        } else {
-          res.status(401).json({ message: "You shall not pass!" });
-        }
+        } 
+        // else {
+        //   res.status(401).json({ message: "You shall not pass!" });
+        // }
       })
       .catch(error => {
         console.log(error);
