@@ -2,6 +2,17 @@ const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const Users = require('./auth-model');
 
+router.get('/', (req, res) => {
+  Users.get()
+  .then(users => {
+    res.status(200).json(users);
+  })
+  .catch(error => {
+    console.log(error);
+    res.status(500).json({ errorMessage: error.message });
+  });
+})
+
 router.post('/register', (req, res) => {
     let user = req.body; 
     const rounds = process.env.HASH_ROUNDS || 12;

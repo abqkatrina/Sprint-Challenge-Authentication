@@ -6,4 +6,5 @@ describe('auth' , () => {
     beforeEach(async () => {
         await.db('auth').truncate();
     })
+    
 })

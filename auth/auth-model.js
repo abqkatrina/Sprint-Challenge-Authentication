@@ -4,26 +4,35 @@ const db = knex(config.development);
 
 module.exports = {
   get,
-  insert,
+  findBy,
+  add,
   remove,
 };
 
 function get() {
-  return db('posts');
-}
+  return db('users');
+};
+
+function findBy(id) {
+  return db('users')
+  .where('id', id)
+  .then(user => {
+    return(user)
+  });
+};
 
 
-function insert(post) {
-  return db('posts')
-    .insert(post)
+function add(user) {
+  return db('users')
+    .insert(user)
     .then(user =>{
         return(user)
     });
-}
+};
 
 
 function remove(id) {
-  return db('posts')
+  return db('users')
     .where('id', id)
     .del();
-}
+};
