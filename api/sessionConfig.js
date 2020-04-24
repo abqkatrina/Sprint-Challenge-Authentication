@@ -6,7 +6,6 @@ const sessionConfig = {
         secure: false,
         httpOnly: true
     },
-    resave: false,
-    saveUninitiated: false
+    resave: false
 }
 module.exports = sessionConfig;

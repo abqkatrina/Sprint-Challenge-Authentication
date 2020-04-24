@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const Users = require('./auth-model');
-const protected = require('./authenticate-middleware');
+const protectMe = require('./authenticate-middleware');
 
 //works
 router.get('/', (req, res) => {
